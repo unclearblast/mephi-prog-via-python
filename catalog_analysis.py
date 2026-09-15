@@ -116,3 +116,26 @@ def count_long_movies(movies, threshold=120):
     return count
 
 # --- END STAGE 4 ---
+
+# ---------------------------------------------------------------------------
+# Этап 4. Строки
+# ---------------------------------------------------------------------------
+def normalize_title(title):
+    """Ручной Title Case: без str.title(), через срезы."""
+    return " ".join(w[0].upper() + w[1:] for w in title.split())
+
+
+def make_slug(title):
+    """Слаг вида the-quiet-algorithm."""
+    return normalize_title(title).lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    """Единая строка описания фильма."""
+    return (
+        f'"{normalize_title(movie["title"])}" ({movie["year"]}) — '
+        f'{movie["rating"]}/10, {duration_in_hours(movie["duration_min"])}, '
+        f'жанры: {", ".join(sorted(movie["genres"]))}'
+    )
+
+# --- END STAGE 5 ---

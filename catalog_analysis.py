@@ -54,3 +54,31 @@ def duration_in_hours(minutes):
     return f"{minutes // 60}ч {minutes % 60}м"
 
 # --- END STAGE 2 ---
+
+# ---------------------------------------------------------------------------
+# Этап 2. Условия и match
+# ---------------------------------------------------------------------------
+def rating_tier(rating):
+    """Категория фильма по рейтингу (if/elif + тернарный оператор)."""
+    if rating >= 9:
+        tier = "шедевр"
+    elif rating >= 7:
+        tier = "хорошо"
+    elif rating >= 5:
+        tier = "средне"
+    else:
+        tier = "слабо"
+    return tier if rating >= 0 else "слабо"
+
+
+def decade_label(year):
+    """Метка десятилетия через match с guard-условиями."""
+    match year:
+        case y if y > 2020:
+            return "новые"
+        case y if y >= 2015:
+            return "недавние"
+        case _:
+            return "старые"
+
+# --- END STAGE 3 ---

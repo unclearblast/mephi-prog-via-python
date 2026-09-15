@@ -139,3 +139,19 @@ def format_report_line(movie):
     )
 
 # --- END STAGE 5 ---
+
+# ---------------------------------------------------------------------------
+# Этап 5. Списки
+# ---------------------------------------------------------------------------
+def titles_sorted_by_rating(movies):
+    """Список названий, отсортированных по убыванию рейтинга."""
+    return [m["title"] for m in
+            sorted(movies, key=lambda x: x["rating"], reverse=True)]
+
+
+def top_n_by_rating(movies, n=3):
+    """Топ-n фильмов как список кортежей (title, rating)."""
+    return [(m["title"], m["rating"]) for m in
+            sorted(movies, key=lambda x: x["rating"], reverse=True)[:n]]
+
+# --- END STAGE 6 ---

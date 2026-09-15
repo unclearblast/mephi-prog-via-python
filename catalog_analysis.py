@@ -205,3 +205,68 @@ def genres_only_in_one(movies_a, movies_b):
     return all_genres(movies_a) - all_genres(movies_b)
 
 # --- END STAGE 8 ---
+
+# ---------------------------------------------------------------------------
+# Этап 8. Итераторы и генераторы
+# ---------------------------------------------------------------------------
+def iter_high_rated(movies, min_rating=8.0):
+    """Ленивый генератор фильмов с рейтингом не ниже min_rating."""
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+
+def total_duration_above_seven(movies):
+    """Суммарная длительность фильмов с рейтингом > 7 (генераторное выражение)."""
+    return sum(m["duration_min"] for m in movies if m["rating"] > 7)
+
+# --- END STAGE 9 ---
+
+# ---------------------------------------------------------------------------
+# Этап 9. Итоговый отчет
+# ---------------------------------------------------------------------------
+def build_report(movies):
+    """Собирает и печатает итоговый отчёт по каталогу."""
+    print("ОТЧЁТ ПО КАТАЛОГУ")
+    print(f"Средний рейтинг: {average_rating(movies)}")
+    _, _, avg_age = catalog_age_stats(movies)
+    print(f"Средний возраст фильмов: {avg_age} лет")
+    print()
+
+    print("Топ-3 фильма:")
+    for movie in sorted(movies, key=lambda m: m["rating"], reverse=True)[:3]:
+        print(f"  {format_report_line(movie)}")
+    print()
+
+    print("Фильмов по жанрам:")
+    genre_counts = count_by_genre(movies)
+    for genre, count in sorted(genre_counts.items(),
+                               key=lambda item: (-item[1], item[0])):
+        print(f"  {genre} — {count}")
+    print()
+
+    print(f"Все жанры каталога: {', '.join(sorted(all_genres(movies)))}")
+
+
+if __name__ == "__main__":
+    print("=== Фильмы, НЕ относящиеся к comedy (for + continue) ===")
+    print_non_comedy(movies)
+    print()
+
+    print("=== Поиск первого фильма с рейтингом > 9.0 (while + break) ===")
+    find_first_high_rated(movies)
+    print()
+
+    print(f"Фильмов длиннее 120 минут: {count_long_movies(movies)}")
+    print()
+
+    print("=== Фильмы с рейтингом ≥ 8.0 (генератор) ===")
+    for movie in iter_high_rated(movies):
+        print(format_report_line(movie))
+    print()
+
+    print("Суммарная длительность фильмов с рейтингом > 7: "
+          f"{total_duration_above_seven(movies)} мин")
+    print()
+
+    build_report(movies)

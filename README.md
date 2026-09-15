@@ -18,33 +18,6 @@
 
     powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-**Через winget:**
-
-    winget install --id=astral-sh.uv -e
-
-**Через pipx:**
-
-    pipx install uv
-
-После установки закрой и снова открой терминал, затем проверь:
-
-    uv --version
-
-Должна показаться версия 0.5 или выше.
-
-## Клонирование и запуск
-
-    git clone https://github.com/<твой-логин>/<имя-репозитория>.git
-    cd <имя-репозитория>
-
-Первый запуск сам создаст виртуальное окружение `.venv` и установит
-зависимости:
-
-    uv run catalog_analysis.py
-
-Ожидаемый результат — консольный отчёт с общей статистикой, топ-3
-фильмами, распределением по жанрам и полным списком жанров каталога.
-
 ## Проверка стиля кода
 
     uv run ruff check .
@@ -104,7 +77,7 @@
 человека без ручной настройки:
 
     cd $env:TEMP
-    git clone <URL-репозитория> test-clone
+    git clone https://github.com/unclearblast/mephi-prog-via-python/ test-clone
     cd test-clone
     uv run catalog_analysis.py
     uv run ruff check .

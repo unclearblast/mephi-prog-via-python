@@ -34,3 +34,23 @@ movies = [
 ]
 
 # --- END STAGE 1 ---
+
+# ---------------------------------------------------------------------------
+# Этап 1. Переменные, числа, math
+# ---------------------------------------------------------------------------
+def average_rating(movies):
+    """Средняя оценка по каталогу, округлённая до одного знака."""
+    return round(sum(m["rating"] for m in movies) / len(movies), 1)
+
+
+def catalog_age_stats(movies, current_year=2026):
+    """Кортеж (самый старый, самый новый, средний возраст)."""
+    ages = [current_year - m["year"] for m in movies]
+    return (max(ages), min(ages), math.ceil(sum(ages) / len(ages)))
+
+
+def duration_in_hours(minutes):
+    """Переводит минуты в формат '2ч 35м'."""
+    return f"{minutes // 60}ч {minutes % 60}м"
+
+# --- END STAGE 2 ---

@@ -155,3 +155,31 @@ def top_n_by_rating(movies, n=3):
             sorted(movies, key=lambda x: x["rating"], reverse=True)[:n]]
 
 # --- END STAGE 6 ---
+
+# ---------------------------------------------------------------------------
+# Этап 6. Словари
+# ---------------------------------------------------------------------------
+def count_by_genre(movies):
+    """Словарь {жанр: количество фильмов} через dict.get()."""
+    counts = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            counts[genre] = counts.get(genre, 0) + 1
+    return counts
+
+
+def actor_filmography(movies):
+    """Словарь {актер: [список названий фильмов]}."""
+    filmography = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            filmography[actor] = filmography.get(actor, []) + [movie["title"]]
+    return filmography
+
+
+def movies_above_average(movies):
+    """Генератор словаря {title: rating} для рейтинга выше среднего."""
+    avg = average_rating(movies)
+    return {m["title"]: m["rating"] for m in movies if m["rating"] > avg}
+
+# --- END STAGE 7 ---

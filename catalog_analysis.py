@@ -183,3 +183,25 @@ def movies_above_average(movies):
     return {m["title"]: m["rating"] for m in movies if m["rating"] > avg}
 
 # --- END STAGE 7 ---
+
+# ---------------------------------------------------------------------------
+# Этап 7. Множества
+# ---------------------------------------------------------------------------
+def all_genres(movies):
+    """Множество всех уникальных жанров каталога."""
+    genres = set()
+    for movie in movies:
+        genres |= movie["genres"]
+    return genres
+
+
+def common_actors(movie1, movie2):
+    """Множество общих актеров двух фильмов (пересечение)."""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Жанры, которые есть в movies_a, но нет в movies_b (разность)."""
+    return all_genres(movies_a) - all_genres(movies_b)
+
+# --- END STAGE 8 ---

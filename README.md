@@ -98,34 +98,6 @@
     ├── .gitignore              # исключения для git
     └── .venv/                  # виртуальное окружение (в git не коммитится)
 
-## Частые проблемы
-
-**`uv: команда не найдена` после установки.**
-Закрой и открой PowerShell заново. Если не помогло — добавь в `PATH`
-папку `%USERPROFILE%\.local\bin`.
-
-**`Failed to build ... Expected a Python module at: __init__.py`.**
-Значит, `pyproject.toml` содержит секцию `[build-system]` и проект
-пытается собираться как пакет. Проект-скрипт **не является пакетом**,
-поэтому в `pyproject.toml` должна быть строка:
-
-    [tool.uv]
-    package = false
-
-и **не должно быть** секций `[build-system]`, `[tool.hatch...]`,
-`src/`.
-
-**`ruff` ругается на BOM в файлах.**
-Это происходит, если файлы записаны через `Set-Content -Encoding utf8`
-в PowerShell 5.1 (пишет с BOM). Перезапиши через:
-
-    [System.IO.File]::WriteAllText("$PWD\catalog_analysis.py", $content, [System.Text.UTF8Encoding]::new($false))
-
-**В git-предупреждениях пишет `LF will be replaced by CRLF`.**
-Безобидно — это про перевод строк. Можно отключить, если мешает:
-
-    git config --global core.autocrlf input
-
 ## Проверка проекта «с нуля»
 
 Чтобы убедиться, что проект собран правильно и запускается у любого
@@ -139,6 +111,3 @@
 
 Обе команды должны отработать без ошибок.
 
-## Лицензия
-
-Учебный проект, распространяется свободно.
